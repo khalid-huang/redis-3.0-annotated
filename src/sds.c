@@ -68,6 +68,7 @@ sds sdsnewlen(const void *init, size_t initlen) {
     struct sdshdr *sh;
 
     // 根据是否有初始化内容，选择适当的内存分配方式
+    // +1时因为需要额外的一个字节放'\0'
     // T = O(N)
     if (init) {
         // zmalloc 不初始化所分配的内存
@@ -695,6 +696,7 @@ sds sdscatvprintf(sds s, const char *fmt, va_list ap) {
  * s = sdscatprintf(sdsempty(), "... your format ...", args);
  */
 sds sdscatprintf(sds s, const char *fmt, ...) {
+    // va_list是c语言中解决变参的一组宏
     va_list ap;
     char *t;
     va_start(ap, fmt);
