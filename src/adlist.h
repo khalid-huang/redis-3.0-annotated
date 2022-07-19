@@ -73,6 +73,9 @@ typedef struct list {
     // 表尾节点
     listNode *tail;
 
+    // 链表节点使用void*指针来保存节点值，并且可以通过list结构的dup、free、
+    // match三个属性为节点值设置类型特定函数，所以链表可以用于保存各种不同类型的值
+    // 而dup、free和match成员则是用于实现多态链表所需的类型特定函数
     // 节点值复制函数
     void *(*dup)(void *ptr);
 

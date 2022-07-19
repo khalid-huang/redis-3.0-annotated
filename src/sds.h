@@ -40,7 +40,7 @@
 #include <stdarg.h>
 
 /*
- * 类型别名，用于指向 sdshdr 的 buf 属性
+ * 类型别名，用于指向 下面sdshdr结构体 的 buf 属性
  */
 typedef char *sds;
 
@@ -65,6 +65,7 @@ struct sdshdr {
  * T = O(1)
  */
 static inline size_t sdslen(const sds s) {
+    // sizeof(struct sdshdr))的长度是8，而s指向sdshdr中的buf字符数组，所以 s-8 的结果就是sdshdr结构体的地址--sh，通过sh->len就可以获得字符串的长度
     struct sdshdr *sh = (void*)(s-(sizeof(struct sdshdr)));
     return sh->len;
 }

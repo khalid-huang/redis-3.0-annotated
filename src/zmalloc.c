@@ -27,6 +27,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+// zmalloc.c和zmalloc.h主要功能就是对原有库里的内存分配函数进行封装，
+// 形成独立的一套内存管理函数。由于redis要求满足跨平台性，
+// 而每个平台又会有自己的内存管理函数，所以在这两个文件中，将会看到大量的#ifdef，
+// 根据系统的不同，使用不同的内存管理函数（例如jemalloc,tcmalloc,cmalloc），
+// 而封装接口都是一致的--zmalloc
 
 #include <stdio.h>
 #include <stdlib.h>

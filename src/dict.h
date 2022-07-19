@@ -114,7 +114,7 @@ typedef struct dictType {
  */
 typedef struct dictht {
     
-    // 哈希表数组
+    // 哈希表数组；这是一个二维数组，第一维是桶，第二维是桶内
     dictEntry **table;
 
     // 哈希表大小
@@ -140,11 +140,12 @@ typedef struct dict {
     // 私有数据
     void *privdata;
 
-    // 哈希表
+    // 哈希表，有两个table，用于rehash
     dictht ht[2];
 
     // rehash 索引
     // 当 rehash 不在进行时，值为 -1
+    // 这个的索引地址是桶的索引，也就是要被rehash的dictht.table的索引
     int rehashidx; /* rehashing not in progress if rehashidx == -1 */
 
     // 目前正在运行的安全迭代器的数量
@@ -189,7 +190,7 @@ typedef void (dictScanFunction)(void *privdata, const dictEntry *de);
 
 /* This is the initial size of every hash table */
 /*
- * 哈希表的初始大小
+ * 哈希表的初始大小，也就是4个桶
  */
 #define DICT_HT_INITIAL_SIZE     4
 

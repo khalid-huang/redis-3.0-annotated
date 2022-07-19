@@ -27,6 +27,8 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+// Redis内存分配策略，作者将不同平台下的内存分配malloc()进行了一个统一，
+// 和统计内存占有量，是对以前平台下内存分配函数的一个封装
 
 #ifndef __ZMALLOC_H
 #define __ZMALLOC_H
@@ -35,6 +37,7 @@
 #define __xstr(s) __str(s)
 #define __str(s) #s
 
+// TCMALLOC
 #if defined(USE_TCMALLOC)
 #define ZMALLOC_LIB ("tcmalloc-" __xstr(TC_VERSION_MAJOR) "." __xstr(TC_VERSION_MINOR))
 #include <google/tcmalloc.h>
@@ -45,6 +48,7 @@
 #error "Newer version of tcmalloc required"
 #endif
 
+// JEMALLOC
 #elif defined(USE_JEMALLOC)
 #define ZMALLOC_LIB ("jemalloc-" __xstr(JEMALLOC_VERSION_MAJOR) "." __xstr(JEMALLOC_VERSION_MINOR) "." __xstr(JEMALLOC_VERSION_BUGFIX))
 #include <jemalloc/jemalloc.h>
@@ -55,12 +59,14 @@
 #error "Newer version of jemalloc required"
 #endif
 
+// 苹果系统
 #elif defined(__APPLE__)
 #include <malloc/malloc.h>
 #define HAVE_MALLOC_SIZE 1
 #define zmalloc_size(p) malloc_size(p)
 #endif
 
+// 其他情况
 #ifndef ZMALLOC_LIB
 #define ZMALLOC_LIB "libc"
 #endif
