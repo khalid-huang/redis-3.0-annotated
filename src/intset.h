@@ -34,13 +34,13 @@
 
 typedef struct intset {
     
-    // 编码方式
+    // 编码方式，有INTSET_ENC_INT16、INTSET_ENC_INT32、INTSET_ENC_INT64
     uint32_t encoding;
 
     // 集合包含的元素数量
     uint32_t length;
 
-    // 保存元素的数组
+    // 保存元素的数组，内容是从小到达排序的
     int8_t contents[];
 
 } intset;

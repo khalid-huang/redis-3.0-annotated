@@ -672,10 +672,10 @@ static int dictGenericDelete(dict *d, const void *key, int nofree)
 
         // 计算索引值 
         idx = h & d->ht[table].sizemask;
-        // 指向该索引上的链表
+        // 指向该索引上的链表，获取桶，也就是，也等于头节点
         he = d->ht[table].table[idx];
         prevHe = NULL;
-        // 遍历链表上的所有节点
+        // 遍历该桶链表上的所有节点，找到前驱和目标节点
         // T = O(1)
         while(he) {
         

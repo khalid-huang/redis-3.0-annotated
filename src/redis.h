@@ -718,10 +718,10 @@ typedef struct zskiplistNode {
     // 成员对象
     robj *obj;
 
-    // 分值
+    // 分值，节点保存的分值，在跳跃表中，节点按各自保存的分值升序排序
     double score;
 
-    // 后退指针
+    // 后退指针,在程序从表尾向表头遍历的时候使用
     struct zskiplistNode *backward;
 
     // 层
