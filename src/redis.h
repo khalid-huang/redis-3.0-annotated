@@ -716,6 +716,7 @@ struct sharedObjectsStruct {
 typedef struct zskiplistNode {
 
     // 成员对象
+    // 节点的成员对象（obj属性）是一个指针，它指向一个字符串对象，而字符串对象则保存着一个SDS值
     robj *obj;
 
     // 分值，节点保存的分值，在跳跃表中，节点按各自保存的分值升序排序
@@ -730,7 +731,9 @@ typedef struct zskiplistNode {
         // 前进指针
         struct zskiplistNode *forward;
 
-        // 跨度
+        // 跨度，用于记录两个节点之间的距离
+        // 跨度实际上是用来计算排位（rank）的：在查找某个节点的过程中，
+        // 将沿途访问过的所有层的跨度累计起来，得到的结果就是目标节点在跳跃表中的排位。
         unsigned int span;
 
     } level[];

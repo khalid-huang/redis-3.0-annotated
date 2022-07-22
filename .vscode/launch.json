@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "g++ - Build and debug active file",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/redis-server",//需要运行的程序
+            "args": [],//程序执行需要传入的参数
+            "stopAtEntry": false,//true时，打开控制台以后停止，暂时不执行程序
+            "cwd": "${workspaceFolder}",//当前工作路径
+            "environment": [],
+            "externalConsole": false,//使用外部控制台
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "C/C++: make build project",//执行编译任务，内容对应task.json中label选项
+            "miDebuggerPath": "/usr/bin/gdb"//调试指令
+        }
+    ]
+}
